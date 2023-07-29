@@ -4,7 +4,7 @@
 
 prune junkcode automatically
 ```shell
-
+py main.py -p "./samples/build/linux/x86_64/debug/jz-jnz"
 ```
 
 # 心路历程
@@ -34,7 +34,7 @@ prune junkcode automatically
   401184:       c3                      ret    
 ```
 
-后面貌似发现 花指令也在cfg中 想根据入度为0去去除 但是_start 啊 plt中又有很多其他的入度为01的 ，。。。
+后面貌似发现 花指令也在cfg中 想根据入度为0去去除 但是_start 啊 plt中又有很多其他的入度为0的 ，。。。
 
 而且发现一个更可怕的事情 他入度为1 是jnz里导致的
 ```shell
@@ -60,7 +60,7 @@ prune junkcode automatically
     --------
 ```
 
-在cfg中则出现了两块阵营
+在cfg中则出现了花指令的错误节点
 ```
 
 2023-07-28 20:21:43.375 | DEBUG    | jcp.cfg:<listcomp>:83 - <401170 2>
@@ -98,3 +98,4 @@ prune junkcode automatically
   401184:       c3                      ret   
 ```
 
+最终的方式还是用指令扫描去做的
